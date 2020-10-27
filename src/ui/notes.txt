@@ -1,0 +1,2 @@
+Solution to issue of not defining SetPixel in first answer:
+https://stackoverflow.com/questions/7493961/why-does-using-getpixel-result-in-an-undefined-reference

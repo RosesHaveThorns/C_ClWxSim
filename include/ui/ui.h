@@ -1,6 +1,7 @@
 #include <windows.h>
 
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
+void DrawGraph(HWND hwnd);
 void CreateMenuBar(HWND);
 void CreateButtons(HWND);
 

@@ -1,20 +1,39 @@
-IDIRS=./include/ui ./include/core
-ODIR=./obj
-SDIRS=./src/ui
+$(info .========= Preparing ClWxSim =========.)
 CC=gcc
 CFLAGS=-g -Wall
 
-SRC=$(wildcard $(SDIRS)/*.c)
+DIRS=core ui sim utils
 
-DEPS=$(wildcard $(IDIRS)/*.h)
+SOURCEDIR:=./src
+BUILDDIR:=./obj
+DEPSDIR:=./include
+
+IDIRS:=$(foreach dir,$(DIRS),$(addprefix $(DEPSDIR)/,$(dir)))
+SDIRS:=$(foreach dir,$(DIRS),$(addprefix $(SOURCEDIR)/,$(dir)))
+
+$(info SOURCE FILES [from $(SDIRS)])
+SRC:=$(foreach sdir,$(SDIRS),$(wildcard $(sdir)/*.c))
+$(info $(SRC))
+
+$(info )
+$(info DEPENDENCIES [from $(IDIRS)])
+DEPS:=$(foreach idir,$(IDIRS),$(wildcard $(idir)/*.h))
+$(info $(DEPS))
 
 DEPSFLAGS=$(patsubst ./%,-I./%,$(IDIRS))
+$(info Directory Flags:)
+$(info $(DEPSFLAGS))
 
-_OBJ=$(SRC:.c=.o)
-OBJ=$(patsubst ./src/%,$(ODIR)/%,$(_OBJ))
+_OBJ:=$(patsubst %.c,%.o,$(SRC))
+OBJ:=$(patsubst ./src/%,$(BUILDDIR)/%,$(_OBJ))
 
-$(ODIR)/%.o: $(SRC) $(DEPS)
-	$(CC) -c -o $@ $< $(CFLAGS) $(DEPSFLAGS)
+$(info )
+$(info COMPILING [to $(OBJ)])
+
+$(BUILDDIR)/%.o: $(SOURCEDIR)/%.c $(DEPS)
+	$(CC) -c $< -o $@ $(CFLAGS) $(DEPSFLAGS)
+	@echo --- Compiled $@ from $< ---
 
 clwxsim: $(OBJ)
-	$(CC) -o $@ $^ $(CFLAGS)
+	@echo --- Building $@ from $^ ---
+	$(CC) $^ -o $@ $(CFLAGS)

@@ -96,7 +96,9 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
       CreateButtons(hwnd);
       break;
 
-    case
+    case WM_PAINT:
+      DrawGraph(hwnd);
+      break;
 
     case WM_COMMAND:
 
