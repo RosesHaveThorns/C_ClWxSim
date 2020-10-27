@@ -2,10 +2,11 @@
 #include <windows.h>
 
 #include <ui.h>
+#include <graph.h>
 
 #include <config.h>
 
-// File ID: 0
+// File ID: 01
 // ID is used in error msgs (first 2 digits of code)
 
 const char g_szClassName[] = "WindowClass"; // name of window class for identifying later
@@ -86,17 +87,45 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 // Window procedure (where messages are processed)
 LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
+  int updateView = 0;
+
   switch(msg)
   {
     case WM_CREATE:
-      AddMenus(hwnd);
+      CreateMenuBar(hwnd);
+      CreateButtons(hwnd);
       break;
 
+    case
+
     case WM_COMMAND:
+
+      // Check Menus and Buttons
       switch(LOWORD(wParam)){
         case IDM_FILE_NEW:
         case IDM_FILE_OPEN:
+        case IDM_SIM_SETUP:
+        case IDM_SIM_START:
+        case IDM_SIM_RESUME:
+        case IDM_SIM_PAUSE:
           MessageBeep(MB_ICONINFORMATION);
+          break;
+
+        case IDB_UPDATEVIEW:
+          MessageBeep(MB_OK);
+          break;
+
+        case IDCB_AUTOUPDATEVIEW:
+          // check update view checkbox
+          updateView = IsDlgButtonChecked(hwnd, IDCB_AUTOUPDATEVIEW);
+
+          if (updateView){
+            CheckDlgButton(hwnd, IDCB_AUTOUPDATEVIEW, BST_UNCHECKED);
+          }
+          else {
+            CheckDlgButton(hwnd, IDCB_AUTOUPDATEVIEW, BST_CHECKED);
+          }
+
           break;
 
         case IDM_FILE_QUIT:
@@ -120,16 +149,18 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
   return 0;
 }
 
-void AddMenus(HWND hwnd) {
-  HMENU hMenubar;
-  HMENU hFileMenu;
-
+void CreateMenuBar(HWND hwnd) {
   #ifdef DEBUG_OUT
     printf("04 Adding Menus\n");
   #endif
 
+  HMENU hMenubar;
+  HMENU hFileMenu;
+  HMENU hSimMenu;
+
   hMenubar = CreateMenu();
   hFileMenu = CreateMenu();
+  hSimMenu = CreateMenu();
 
   // Add menu options to file menu
   AppendMenuW(hFileMenu, MF_STRING, IDM_FILE_NEW, L"&New");
@@ -137,9 +168,29 @@ void AddMenus(HWND hwnd) {
   AppendMenuW(hFileMenu, MF_SEPARATOR, 0, NULL);
   AppendMenuW(hFileMenu, MF_STRING, IDM_FILE_QUIT, L"&Quit");
 
+  // Add menu options to sim menu
+  AppendMenuW(hSimMenu, MF_STRING, IDM_SIM_SETUP, L"&Setup");
+  AppendMenuW(hSimMenu, MF_STRING, IDM_SIM_START, L"&Start");
+  AppendMenuW(hSimMenu, MF_SEPARATOR, 0, NULL);
+  AppendMenuW(hSimMenu, MF_STRING, IDM_SIM_RESUME, L"&Resume");
+  AppendMenuW(hSimMenu, MF_STRING, IDM_SIM_PAUSE, L"&Pause");
+
   // Append menus to menu bar
   AppendMenuW(hMenubar, MF_POPUP, (UINT_PTR) hFileMenu, L"&File");
+  AppendMenuW(hMenubar, MF_POPUP, (UINT_PTR) hSimMenu, L"&Sim");
 
   // Send the menubar to the window
   SetMenu(hwnd, hMenubar);
+}
+
+void CreateButtons(HWND hwnd) {
+  CreateWindowW(L"Button", L"Update View",
+      WS_VISIBLE | WS_CHILD ,
+      20, 50, 80, 25, hwnd, (HMENU) IDB_UPDATEVIEW,
+      NULL, NULL);
+
+  CreateWindowW(L"Button", L"Auto Update View",
+        WS_VISIBLE | WS_CHILD | BS_CHECKBOX,
+        20, 20, 185, 35, hwnd, (HMENU) IDCB_AUTOUPDATEVIEW,
+        NULL, NULL);
 }
