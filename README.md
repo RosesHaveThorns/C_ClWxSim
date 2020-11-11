@@ -4,7 +4,7 @@ A very simplistic weather and climate simulator for worldbuilding. Currently in 
 Note, conversion is still incomplete at this time.
 
 ## Current Features
-- basic Win32API ui
+- Basic Win32API ui
 
 ## Inprogress Features
 - Graph showing pressure field, wind, coriolis force, etc...
