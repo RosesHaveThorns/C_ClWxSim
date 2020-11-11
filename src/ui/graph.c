@@ -32,7 +32,7 @@ void DrawGraph(HWND hwnd, int x_padding, int graph_top){
   CalcRectPos(rect_width, rect_height, x_padding, GRAPH_SIZE_RATIO, &graph_left, &graph_top, &graph_right, &graph_bottom);
 
   int origin[2] = {graph_left + ((graph_right - graph_left) * 0.05),
-                     graph_bottom - ((graph_bottom - graph_top) * 0.05)};
+                   graph_bottom - ((graph_bottom - graph_top) * 0.05)};
 
   int axis_height = (graph_bottom - graph_top)-((graph_bottom - graph_top) * 0.05 * 2);
   int cell_height = axis_height / eg_world_height;
@@ -59,6 +59,15 @@ void DrawGraph(HWND hwnd, int x_padding, int graph_top){
   LineTo(hdc, origin[0], graph_top + ((graph_bottom - graph_top) * 0.05));
 
 
+  drawTicks(hdc, origin, axis_width, axis_height, eg_world_width, eg_world_height);
+
+
+  // CLEAN UP
+
+  EndPaint(hwnd, &ps);
+}
+
+void drawTicks(HDC hdc, int origin[], int axis_width, int axis_height, int wld_width, int wld_height) {
     // select tick text font
   HFONT hFont = CreateFont(15, 0, 0, 0, FW_MEDIUM, 0, 0, 0, 0, 0, 0, 0, 0, "Georgia");
   HFONT hOldFont = SelectObject(hdc, hFont);
@@ -73,7 +82,7 @@ void DrawGraph(HWND hwnd, int x_padding, int graph_top){
 
     char tick_num[4] = {' ',' ',' ',' '}; // must set to empty, otherwise it uses old vals in empty spaces
     LPCSTR tick_num_const[4];
-    itoa((eg_world_height/GRAPH_TICK_TOTAL*i), tick_num, 10);   // conv int (base 10) to str
+    itoa((wld_height/GRAPH_TICK_TOTAL*i), tick_num, 10);   // conv int (base 10) to str
     *tick_num_const = tick_num;
 
     TextOut(hdc, origin[0]-30, tick_y-10, *tick_num_const,  sizeof(*tick_num_const));
@@ -89,16 +98,13 @@ void DrawGraph(HWND hwnd, int x_padding, int graph_top){
 
     char tick_num[4] = {' ',' ',' ',' '}; // must set to empty, otherwise it uses old vals in empty spaces
     LPCSTR tick_num_const[4];
-    itoa((eg_world_width/GRAPH_TICK_TOTAL*i), tick_num, 10);   // conv int (base 10) to str
+    itoa((wld_width/GRAPH_TICK_TOTAL*i), tick_num, 10);   // conv int (base 10) to str
     *tick_num_const = tick_num;
 
     TextOut(hdc, tick_x-10, origin[1]+10, *tick_num_const,  4);
   }
 
-
-  // CLEAN UP
+  // clean up
   SelectObject(hdc, hOldFont);
   DeleteObject(hFont);
-
-  EndPaint(hwnd, &ps);
 }
