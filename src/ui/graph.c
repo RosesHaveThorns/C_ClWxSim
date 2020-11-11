@@ -64,30 +64,30 @@ void DrawGraph(HWND hwnd, int x_padding, int graph_top){
   HFONT hOldFont = SelectObject(hdc, hFont);
 
     // draw y axis ticks
-  int tick_y;
+  int tick_y = 0;
   for (int i = 0; i <= GRAPH_TICK_TOTAL; i++){
     tick_y = origin[1] - ((axis_height / GRAPH_TICK_TOTAL) * i);
 
     MoveToEx(hdc, origin[0], tick_y, NULL);
     LineTo(hdc, origin[0] - 10, tick_y);
 
-    char tick_num[4];
+    char tick_num[4] = {' ',' ',' ',' '}; // must set to empty, otherwise it uses old vals in empty spaces
     LPCSTR tick_num_const[4];
     itoa((eg_world_height/GRAPH_TICK_TOTAL*i), tick_num, 10);   // conv int (base 10) to str
     *tick_num_const = tick_num;
 
-    TextOut(hdc, origin[0]-30, tick_y-10, *tick_num_const,  4);
+    TextOut(hdc, origin[0]-30, tick_y-10, *tick_num_const,  sizeof(*tick_num_const));
   }
 
     // draw x axis ticks
-  int tick_x;
+  int tick_x = 0;
   for (int i = 0; i <= GRAPH_TICK_TOTAL; i++){
     tick_x = origin[0] + ((axis_width / GRAPH_TICK_TOTAL) * i);
 
     MoveToEx(hdc, tick_x, origin[1], NULL);
     LineTo(hdc, tick_x, origin[1] + 10);
 
-    char tick_num[4];
+    char tick_num[4] = {' ',' ',' ',' '}; // must set to empty, otherwise it uses old vals in empty spaces
     LPCSTR tick_num_const[4];
     itoa((eg_world_width/GRAPH_TICK_TOTAL*i), tick_num, 10);   // conv int (base 10) to str
     *tick_num_const = tick_num;
