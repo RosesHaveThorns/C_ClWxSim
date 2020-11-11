@@ -9,6 +9,12 @@
 // File ID: 02
 // ID is used in error msgs (first 2 digits of code)
 
+// Private func defintions
+void drawTicks(HDC hdc, int origin[], int axis_width, int axis_height, int wld_width, int wld_height);
+void drawAxis(HDC hdc, int origin[], int graph_left, int graph_top, int graph_right, int graph_bottom);
+void drawPressure();
+
+// Main graph draw function
 void DrawGraph(HWND hwnd, int x_padding, int graph_top){
   PAINTSTRUCT ps;
   RECT rect;
@@ -48,6 +54,21 @@ void DrawGraph(HWND hwnd, int x_padding, int graph_top){
   DWORD colour = GetSysColor(COLOR_BTNFACE);
   SetBkColor(hdc, colour);
 
+    // draw funcs
+  drawAxis(hdc, origin, graph_left, graph_top, graph_right, graph_bottom);
+  drawTicks(hdc, origin, axis_width, axis_height, eg_world_width, eg_world_height);
+  drawPressure();
+
+  // CLEAN UP
+
+  EndPaint(hwnd, &ps);
+}
+
+void drawPressure(/* arguments */) {
+  /* code */
+}
+
+void drawAxis(HDC hdc, int origin[], int graph_left, int graph_top, int graph_right, int graph_bottom) {
     // draw outline rect
   Rectangle(hdc, graph_left, graph_top, graph_right, graph_bottom);  // Background Rect
 
@@ -57,14 +78,6 @@ void DrawGraph(HWND hwnd, int x_padding, int graph_top){
 
   MoveToEx(hdc, origin[0], origin[1], NULL);
   LineTo(hdc, origin[0], graph_top + ((graph_bottom - graph_top) * 0.05));
-
-
-  drawTicks(hdc, origin, axis_width, axis_height, eg_world_width, eg_world_height);
-
-
-  // CLEAN UP
-
-  EndPaint(hwnd, &ps);
 }
 
 void drawTicks(HDC hdc, int origin[], int axis_width, int axis_height, int wld_width, int wld_height) {
