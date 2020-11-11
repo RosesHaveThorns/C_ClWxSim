@@ -1,9 +1,16 @@
 #include <windows.h>
 
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
-void DrawGraph(HWND hwnd);
 void CreateMenuBar(HWND);
 void CreateButtons(HWND);
+
+// Min window size
+#define WND_WIDTH_MIN 875
+#define WND_HEIGHT_MIN 650
+
+// Graph position and size
+#define GRAPH_X_PADDING 100
+#define GRAPH_TOP 100
 
 // IDM = Menus, IDB = Buttons, IDCB = Checkboxes
 #define IDM_FILE_NEW 1

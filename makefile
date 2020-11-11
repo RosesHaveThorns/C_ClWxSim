@@ -1,6 +1,6 @@
 $(info .========= Preparing ClWxSim =========.)
 CC=gcc
-CFLAGS=-g -Wall
+CFLAGS=-g -Wall -lgdi32
 
 DIRS=core ui sim utils
 
@@ -31,9 +31,9 @@ $(info )
 $(info COMPILING [to $(OBJ)])
 
 $(BUILDDIR)/%.o: $(SOURCEDIR)/%.c $(DEPS)
+	@echo --- Compiling $@ from $<
 	$(CC) -c $< -o $@ $(CFLAGS) $(DEPSFLAGS)
-	@echo --- Compiled $@ from $< ---
 
 clwxsim: $(OBJ)
-	@echo --- Building $@ from $^ ---
+	@echo --- Building $@ from $^
 	$(CC) $^ -o $@ $(CFLAGS)

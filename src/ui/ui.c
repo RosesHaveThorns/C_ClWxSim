@@ -26,7 +26,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
   // REGISTER WINDOW CLASS
   #ifdef DEBUG_OUT
-    printf("01 Registering Main Window Class\n");
+    printf("D0101 Registering Main Window Class\n");
   #endif
 
   wc.cbSize         =   sizeof(WNDCLASSEX);               // size of structure
@@ -53,7 +53,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
   // CREATE WINDOW
   #ifdef DEBUG_OUT
-    printf("02 Successfully Registered Window Class, Creating Window\n");
+    printf("D0102 Successfully Registered Window Class, Creating Window\n");
   #endif
                   //    extended wnds style                          window style       x, y coords for top left        x, y wnd size
   hwnd = CreateWindowEx(WS_EX_CLIENTEDGE, g_szClassName, wndTitle, WS_OVERLAPPEDWINDOW | WS_VISIBLE, CW_USEDEFAULT, CW_USEDEFAULT, wndSize[0], wndSize[1], NULL, NULL, hInstance, NULL);
@@ -71,7 +71,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
   UpdateWindow(hwnd);
 
   #ifdef DEBUG_OUT
-    printf("03 Showing Window\n");
+    printf("D0103 Showing Window\n");
   #endif
 
   // MESSAGE loop
@@ -88,6 +88,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
   int updateView = 0;
+  LPMINMAXINFO wnd_minmax_info;
 
   switch(msg)
   {
@@ -96,8 +97,19 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
       CreateButtons(hwnd);
       break;
 
+    case WM_SIZE:
+      InvalidateRect(hwnd, NULL, 1); // redraw window next loop
+      break;
+
     case WM_PAINT:
-      DrawGraph(hwnd);
+      DrawGraph(hwnd, GRAPH_X_PADDING, GRAPH_TOP);
+      break;
+
+    case WM_GETMINMAXINFO:
+      wnd_minmax_info = (LPMINMAXINFO) lParam;
+
+      wnd_minmax_info->ptMinTrackSize.x = WND_WIDTH_MIN;
+      wnd_minmax_info->ptMinTrackSize.y = WND_HEIGHT_MIN;
       break;
 
     case WM_COMMAND:
@@ -153,7 +165,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
 void CreateMenuBar(HWND hwnd) {
   #ifdef DEBUG_OUT
-    printf("04 Adding Menus\n");
+    printf("D0104 Adding Menus\n");
   #endif
 
   HMENU hMenubar;
