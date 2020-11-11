@@ -12,14 +12,14 @@
 // Private func defintions
 void drawTicks(HDC hdc, int origin[], int axis_width, int axis_height, int wld_width, int wld_height);
 void drawAxis(HDC hdc, int origin[], int graph_left, int graph_top, int graph_right, int graph_bottom);
-void drawPressure();
+void drawPressure(HDC hdc, int origin[], float pressure_array[128][128], int wld_width, int wld_height, int cell_width, int cell_height);
 
 // Main graph draw function
 void DrawGraph(HWND hwnd, int x_padding, int graph_top){
   PAINTSTRUCT ps;
   RECT rect;
 
-  float eg_wind_array[128][128];
+  float eg_pressure_array[128][128];
   int eg_world_width = 128;
   int eg_world_height = 128;
 
@@ -57,16 +57,40 @@ void DrawGraph(HWND hwnd, int x_padding, int graph_top){
     // draw funcs
   drawAxis(hdc, origin, graph_left, graph_top, graph_right, graph_bottom);
   drawTicks(hdc, origin, axis_width, axis_height, eg_world_width, eg_world_height);
-  drawPressure();
+  drawPressure(hdc, origin, eg_pressure_array, eg_world_width, eg_world_height, cell_width, cell_height);
 
   // CLEAN UP
 
   EndPaint(hwnd, &ps);
 }
 
-void drawPressure(/* arguments */) {
-  /* code */
+// Draw functions:
+void fillCell(HDC hdc, COLORREF colour, int top, int left, int bott, int right){
+  for (int y = top; y < bott; y++){
+    for (int x = left; x < right; x++){
+      SetPixel(hdc, top, left, colour);
+    }
+  }
 }
+
+void drawPressure(HDC hdc, int origin[], float pressure_array[128][128], int wld_width, int wld_height, int cell_width, int cell_height) {
+  // Fill each cell
+  int top, right, bott, left;
+
+  COLORREF col = RGB(255, 0, 0);
+
+  for(int y = 0; y < wld_height; y++){
+    for (int x = 0; x < wld_width; x++) {
+      bott = origin[1] - (cell_height * y);
+      left = origin[0] + (cell_width * x);
+      right = left + cell_width;
+      top = bott - cell_height;
+
+      fillCell(hdc, col, x, y, bott, right);
+    }
+  }
+}
+
 
 void drawAxis(HDC hdc, int origin[], int graph_left, int graph_top, int graph_right, int graph_bottom) {
     // draw outline rect
