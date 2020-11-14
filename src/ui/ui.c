@@ -74,6 +74,17 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
     printf("D0103 Showing Window\n");
   #endif
 
+  // set increased gdi bathclimit, to speed up wnd render times
+  #ifdef DEBUG_OUT
+    printf("D0105 GDI Batch Limit: %ld\n", GdiGetBatchLimit());
+  #endif
+
+  GdiSetBatchLimit(GDI_BATCHLIMIT);
+
+  #ifdef DEBUG_OUT
+    printf("D0106 New GDI Batch Limit: %ld\n", GdiGetBatchLimit());
+  #endif
+
   // MESSAGE loop
   while (GetMessage(&Msg, NULL, 0, 0) > 0)
   {
