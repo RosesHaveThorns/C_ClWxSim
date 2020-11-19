@@ -4,12 +4,16 @@ A very simplistic weather and climate simulator for worldbuilding. Currently in 
 Note, conversion is still incomplete at this time.
 
 ## Current Features
+- Basic Win32API ui
+
+## Inprogress Features
+- Graph showing pressure field, wind, coriolis force, etc...
+
+## Future Features
 - Wind Simulation
 - Pressure Advection and Diffusion
 - Coriolis Effect
 - Pressure Gradient Force Simulation
-
-## Future Features
 - Temperature Calculation, using ideal gas laws and the Pressure Simulation
 - Humidity Simulation, including Precipitation and Cloud tracking
 - UI with front tracking and views for humidity, temperatures, pressure, wind etc
