@@ -74,17 +74,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
     printf("D0103 Showing Window\n");
   #endif
 
-  // set increased gdi bathclimit, to speed up wnd render times
-  #ifdef DEBUG_OUT
-    printf("D0105 GDI Batch Limit: %ld\n", GdiGetBatchLimit());
-  #endif
-
-  GdiSetBatchLimit(GDI_BATCHLIMIT);
-
-  #ifdef DEBUG_OUT
-    printf("D0106 New GDI Batch Limit: %ld\n", GdiGetBatchLimit());
-  #endif
-
   // MESSAGE loop
   while (GetMessage(&Msg, NULL, 0, 0) > 0)
   {
@@ -137,7 +126,8 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
           break;
 
         case IDB_UPDATEVIEW:
-          MessageBeep(MB_OK);
+          DrawUpdateGraph(hwnd, GRAPH_X_PADDING, GRAPH_TOP);
+          InvalidateRect(hwnd, NULL, 1); // redraw window next loop
           break;
 
         case IDCB_AUTOUPDATEVIEW:
