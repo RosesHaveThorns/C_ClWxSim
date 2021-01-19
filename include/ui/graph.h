@@ -1,7 +1,8 @@
 #include <config.h>
 
-void DrawUpdateGraph(HWND, struct world, int, int);
-void DrawGraph(HWND, int, int);
+
+void DrawGraph(HWND hwnd, int x_padding, int graph_top);
+void DrawUpdateGraph(HWND hwnd, World *wld, int x_padding, int graph_top);
 
 #define GRAPH_SIZE_RATIO 0.6
 #define GRAPH_TICK_TOTAL 16

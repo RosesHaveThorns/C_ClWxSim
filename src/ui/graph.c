@@ -1,9 +1,10 @@
 #include <graph.h>
 
-#include <windows.h>
+//#include <windows.h>
 #include <stdio.h>
 
 #include <ui_utils.h>
+
 #include <world.h>
 
 // File ID: 02
@@ -19,11 +20,11 @@ int cell_width;
 HBITMAP graph_bmp;
 int old_graph_width, old_graph_height;
 
-// Private func defintions
-void drawTicks(HDC);
+// func definitions
+void drawTicks(HDC, World *);
 void drawAxis(HDC, int, int);
-void drawPressure(HDC, struct world);
-void drawQuiver(HDC, struct world, float);
+void drawPressure(HDC, World *);
+void drawQuiver(HDC, World *, float);
 
 // draw old graph bitmap, with rescaleing
 void DrawGraph(HWND hwnd, int x_padding, int graph_top) {
@@ -61,7 +62,7 @@ void DrawGraph(HWND hwnd, int x_padding, int graph_top) {
 }
 
 // update graph bitmap and draw
-void DrawUpdateGraph(HWND hwnd, struct world wld, int x_padding, int graph_top) {
+void DrawUpdateGraph(HWND hwnd, World *wld, int x_padding, int graph_top) {
   PAINTSTRUCT ps;
   RECT rect;
 
@@ -92,10 +93,10 @@ void DrawUpdateGraph(HWND hwnd, struct world wld, int x_padding, int graph_top) 
   origin[1] = graph_height * (1 - GRAPH_ORIGIN_OFFSET);
 
   axis_height = graph_height * (1 - (GRAPH_ORIGIN_OFFSET * 2));
-  cell_height = axis_height / wld_height;
+  cell_height = axis_height / wld->height;
 
   axis_width = graph_width * (1 - (GRAPH_ORIGIN_OFFSET * 2));
-  cell_width = axis_width / wld_width;
+  cell_width = axis_width / wld->width;
 
   // DRAW GRAPH
 
@@ -107,7 +108,7 @@ void DrawUpdateGraph(HWND hwnd, struct world wld, int x_padding, int graph_top) 
 
     // draw funcs
   drawAxis(hdc_bmp, graph_width, graph_height);
-  drawTicks(hdc_bmp);
+  drawTicks(hdc_bmp, wld);
   drawPressure(hdc_bmp, wld);
   drawQuiver(hdc_bmp, wld, 1);
 
@@ -118,20 +119,20 @@ void DrawUpdateGraph(HWND hwnd, struct world wld, int x_padding, int graph_top) 
 }
 
 // DRAW FUNCTIONS:
-void drawQuiver(HDC hdc, struct world wld, float scale) {
+void drawQuiver(HDC hdc, World *wld, float scale) {
   // Draw velocity arrow for each cell
   #ifdef DEBUG_OUT
     printf("D0201 Draw Quiver\n");
   #endif
 
   int centre_x, centre_y, end_x, end_y;
-  for (int y = 0; y < wld_height; y++){
-    for (int x = 0; x < wld_width; x++){
+  for (int y = 0; y < wld->height; y++){
+    for (int x = 0; x < wld->width; x++){
       centre_y = origin[1] - (cell_height * y) + (0.5 * cell_height);
       centre_x = origin[0] + (cell_width * x) + (0.5 * cell_width);
 
-      end_y = centre_y - (vel_array_y[x][y] * scale);
-      end_x = centre_x + (vel_array_x[x][y] * scale);
+      end_y = centre_y - (wld->wind_vel_y[x][y] * scale);
+      end_x = centre_x + (wld->wind_vel_y[x][y] * scale);
 
       MoveToEx(hdc, centre_x,centre_y, NULL);
       LineTo(hdc, end_x, end_y);
@@ -139,7 +140,7 @@ void drawQuiver(HDC hdc, struct world wld, float scale) {
   }
 }
 
-void drawPressure(HDC hdc, struct world wld) {
+void drawPressure(HDC hdc, World *wld) {
   // Fill each cell
   #ifdef DEBUG_OUT
     printf("D0201 Draw Pressure\n");
@@ -147,8 +148,8 @@ void drawPressure(HDC hdc, struct world wld) {
 
   int bott, left, right, top;
 
-  for(int y = 0; y < wld_height; y++) {
-    for (int x = 0; x < wld_width; x++) {
+  for(int y = 0; y < wld->height; y++) {
+    for (int x = 0; x < wld->width; x++) {
       bott = origin[1] - (cell_height * y);
       left = origin[0] + (cell_width * x);
       right = left + cell_width;
@@ -172,7 +173,7 @@ void drawAxis(HDC hdc, int graph_width, int graph_height) {
   LineTo(hdc, origin[0], 0 + (graph_height * GRAPH_ORIGIN_OFFSET));
 }
 
-void drawTicks(HDC hdc) {
+void drawTicks(HDC hdc, World *wld) {
     // select tick text font
   HFONT hFont = CreateFont(15, 0, 0, 0, FW_MEDIUM, 0, 0, 0, 0, 0, 0, 0, 0, "Georgia");
   HFONT hOldFont = SelectObject(hdc, hFont);
@@ -187,7 +188,7 @@ void drawTicks(HDC hdc) {
 
     char tick_num[4] = {' ',' ',' ',' '}; // must set to empty, otherwise it uses old vals in empty spaces
     LPCSTR tick_num_const[4];
-    itoa((wld_height/GRAPH_TICK_TOTAL*i), tick_num, 10);   // conv int (base 10) to str
+    itoa((wld->height / GRAPH_TICK_TOTAL * i), tick_num, 10);   // conv int (base 10) to str
     *tick_num_const = tick_num;
 
     TextOut(hdc, origin[0]-30, tick_y-10, *tick_num_const,  sizeof(*tick_num_const));
@@ -203,7 +204,7 @@ void drawTicks(HDC hdc) {
 
     char tick_num[4] = {' ',' ',' ',' '}; // must set to empty, otherwise it uses old vals in empty spaces
     LPCSTR tick_num_const[4];
-    itoa((wld_width/GRAPH_TICK_TOTAL*i), tick_num, 10);   // conv int (base 10) to str
+    itoa((wld->width/GRAPH_TICK_TOTAL*i), tick_num, 10);   // conv int (base 10) to str
     *tick_num_const = tick_num;
 
     TextOut(hdc, tick_x-10, origin[1]+10, *tick_num_const,  4);

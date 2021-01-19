@@ -11,6 +11,8 @@
 
 const char g_szClassName[] = "WindowClass"; // name of window class for identifying later
 
+  World wld;
+
 // main loop; hInstance is handle for exe file in memory, hPrevInstance always NULL, lpCmdLine is command line args as str, nCmdShow is int for ShowWindow()
 // LPSTR = windows char* (LP = long pointer, C would mean constant), UINT = windows unsigned int
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
@@ -19,10 +21,13 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
   WNDCLASSEX wc;  // window class var
   HWND hwnd;      // window var
-  MSG Msg;        // stores current message (keypresse, mouse click etc)
+  MSG Msg;        // stores current message (keypress, mouse click etc)
 
   int wndSize[2] = {920, 680};  // default window size
   char wndTitle[] = "ClWxSim";  // title of main window (displayed in title bar)
+
+  // setup world struct
+  wld_init(&wld, 255, 255, 1012.0, 0.0000727, 10);
 
   // REGISTER WINDOW CLASS
   #ifdef DEBUG_OUT
@@ -95,7 +100,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
     case WM_CREATE:
       CreateMenuBar(hwnd);
       CreateButtons(hwnd);
-      DrawUpdateGraph(hwnd, GRAPH_X_PADDING, GRAPH_TOP);
+      DrawUpdateGraph(hwnd, &wld, GRAPH_X_PADDING, GRAPH_TOP);
       InvalidateRect(hwnd, NULL, 1); // redraw window next loop
       break;
 
@@ -128,7 +133,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
           break;
 
         case IDB_UPDATEVIEW:
-          DrawUpdateGraph(hwnd, GRAPH_X_PADDING, GRAPH_TOP);
+          DrawUpdateGraph(hwnd, &wld, GRAPH_X_PADDING, GRAPH_TOP);
           InvalidateRect(hwnd, NULL, 1); // redraw window next loop
           break;
 

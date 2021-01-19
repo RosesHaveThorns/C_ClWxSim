@@ -1,8 +1,8 @@
 #include <config.h>
 
 struct world {
-  int wld_width;  // amount of cells wide
-  int wld_height; // amount of cells high
+  int width;  // amount of cells wide
+  int height; // amount of cells high
 
   float cell_size; // size and width of a cell, measured in km
 
@@ -22,3 +22,7 @@ struct world {
   float ground_height[MAX_WLDARRAY_SIZE][MAX_WLDARRAY_SIZE];  // height of land in cell, measured in metres
   float ground_water[MAX_WLDARRAY_SIZE][MAX_WLDARRAY_SIZE];   // amount of water in cell, ratio
 };
+
+typedef struct world World;
+
+void wld_init(World *wld, int, int, float, float, float);
