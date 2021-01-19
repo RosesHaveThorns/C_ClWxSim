@@ -1,24 +1,15 @@
-#include <stdio.h>
-#include <windows.h>
-
 #include <graph.h>
-#include <ui_utils.h>
 
-#include <config.h>
+#include <windows.h>
+#include <stdio.h>
+
+#include <ui_utils.h>
+#include <world.h>
 
 // File ID: 02
 // ID is used in error msgs (first 2 digits of code)
 
-// Private func defintions
-void drawTicks(HDC);
-void drawAxis(HDC, int, int);
-void drawPressure(HDC);
-
 // global vars
-float eg_pressure_array[128][128];
-int wld_width = 128;
-int wld_height = 128;
-
 int origin[2];
 int axis_height;
 int cell_height;
@@ -28,14 +19,16 @@ int cell_width;
 HBITMAP graph_bmp;
 int old_graph_width, old_graph_height;
 
+// Private func defintions
+void drawTicks(HDC);
+void drawAxis(HDC, int, int);
+void drawPressure(HDC, struct world);
+void drawQuiver(HDC, struct world, float);
+
 // draw old graph bitmap, with rescaleing
 void DrawGraph(HWND hwnd, int x_padding, int graph_top) {
   PAINTSTRUCT ps;
   RECT rect;
-
-  #ifdef DEBUG_OUT
-    printf("D0203 Draw Graph\n");
-  #endif
 
   GetClientRect(hwnd, &rect);
 
@@ -68,7 +61,7 @@ void DrawGraph(HWND hwnd, int x_padding, int graph_top) {
 }
 
 // update graph bitmap and draw
-void DrawUpdateGraph(HWND hwnd, int x_padding, int graph_top) {
+void DrawUpdateGraph(HWND hwnd, struct world wld, int x_padding, int graph_top) {
   PAINTSTRUCT ps;
   RECT rect;
 
@@ -115,7 +108,8 @@ void DrawUpdateGraph(HWND hwnd, int x_padding, int graph_top) {
     // draw funcs
   drawAxis(hdc_bmp, graph_width, graph_height);
   drawTicks(hdc_bmp);
-  drawPressure(hdc_bmp);
+  drawPressure(hdc_bmp, wld);
+  drawQuiver(hdc_bmp, wld, 1);
 
   // Draw bitmap to screen then CLEAN UP
   BitBlt(hdc, graph_left, graph_top, graph_width, graph_height, hdc_bmp, 0, 0, SRCCOPY);
@@ -123,9 +117,29 @@ void DrawUpdateGraph(HWND hwnd, int x_padding, int graph_top) {
   EndPaint(hwnd, &ps);
 }
 
-// Draw functions:
+// DRAW FUNCTIONS:
+void drawQuiver(HDC hdc, struct world wld, float scale) {
+  // Draw velocity arrow for each cell
+  #ifdef DEBUG_OUT
+    printf("D0201 Draw Quiver\n");
+  #endif
 
-void drawPressure(HDC hdc) {
+  int centre_x, centre_y, end_x, end_y;
+  for (int y = 0; y < wld_height; y++){
+    for (int x = 0; x < wld_width; x++){
+      centre_y = origin[1] - (cell_height * y) + (0.5 * cell_height);
+      centre_x = origin[0] + (cell_width * x) + (0.5 * cell_width);
+
+      end_y = centre_y - (vel_array_y[x][y] * scale);
+      end_x = centre_x + (vel_array_x[x][y] * scale);
+
+      MoveToEx(hdc, centre_x,centre_y, NULL);
+      LineTo(hdc, end_x, end_y);
+    }
+  }
+}
+
+void drawPressure(HDC hdc, struct world wld) {
   // Fill each cell
   #ifdef DEBUG_OUT
     printf("D0201 Draw Pressure\n");

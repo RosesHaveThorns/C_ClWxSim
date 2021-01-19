@@ -1,4 +1,4 @@
-#include <windows.h>
+#include <config.h>
 
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 void CreateMenuBar(HWND);

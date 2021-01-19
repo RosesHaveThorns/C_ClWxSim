@@ -1,10 +1,10 @@
-#include <stdio.h>
-#include <windows.h>
-
 #include <ui.h>
-#include <graph.h>
 
-#include <config.h>
+#include <windows.h>
+#include <stdio.h>
+
+#include <world.h>
+#include <graph.h>
 
 // File ID: 01
 // ID is used in error msgs (first 2 digits of code)
@@ -95,6 +95,8 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
     case WM_CREATE:
       CreateMenuBar(hwnd);
       CreateButtons(hwnd);
+      DrawUpdateGraph(hwnd, GRAPH_X_PADDING, GRAPH_TOP);
+      InvalidateRect(hwnd, NULL, 1); // redraw window next loop
       break;
 
     case WM_SIZE:

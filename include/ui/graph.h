@@ -1,6 +1,6 @@
-#include <windows.h>
+#include <config.h>
 
-void DrawUpdateGraph(HWND, int, int);
+void DrawUpdateGraph(HWND, struct world, int, int);
 void DrawGraph(HWND, int, int);
 
 #define GRAPH_SIZE_RATIO 0.6
