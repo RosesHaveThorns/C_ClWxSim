@@ -3,6 +3,7 @@
 // File ID: 02
 // ID is used in error msgs (first 2 digits of code)
 
+
 // global vars
 int origin[2];
 int axis_height;
@@ -19,7 +20,7 @@ void drawAxis(HDC, int, int);
 void drawPressure(HDC, World *);
 void drawQuiver(HDC, World *, float);
 
-// draw old graph bitmap, with rescaleing
+// draw old graph bitmap, with rescaling
 void DrawGraph(HWND hwnd, int x_padding, int graph_top) {
   PAINTSTRUCT ps;
   RECT rect;

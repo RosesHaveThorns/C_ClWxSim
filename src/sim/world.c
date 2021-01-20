@@ -1,5 +1,8 @@
 #include "world.h"
 
+#include <stdio.h>
+#include "array_utils.h"
+
 // setup graph struct to initial values
 void wld_init(World *wld, int width, int height, float init_pressure, float ang_vel, float cell_size) {
   wld->width = width;

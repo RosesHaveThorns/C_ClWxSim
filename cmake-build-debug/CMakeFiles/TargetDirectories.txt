@@ -1,0 +1,3 @@
+C:/Users/mbrin/CLionProjects/C_ClWxSim/cmake-build-debug/CMakeFiles/C_ClWxSim.dir
+C:/Users/mbrin/CLionProjects/C_ClWxSim/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/mbrin/CLionProjects/C_ClWxSim/cmake-build-debug/CMakeFiles/rebuild_cache.dir

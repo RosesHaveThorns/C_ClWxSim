@@ -1,7 +1,6 @@
 #include "config.h"
 
-#include <stdio.h>
-#include "array_utils.h"
+
 
 
 struct world {

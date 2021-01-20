@@ -1,7 +1,5 @@
 #include "ui.h"
 
-
-
 // File ID: 01
 // ID is used in error msgs (first 2 digits of code)
 
@@ -23,7 +21,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
   char wndTitle[] = "ClWxSim";  // title of main window (displayed in title bar)
 
   // setup world struct
-  wld_init(&wld, 255, 255, 1012.0, 0.0000727, 10);
+  wld_init(&wld, 255, 255, 1012.0f, 0.0000727f, 10);
 
   // REGISTER WINDOW CLASS
   #ifdef DEBUG_OUT
@@ -157,7 +155,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
       break;
 
     case WM_DESTROY:
-      PostQuitMessage(0); // causes GetMessage to return false (0 is the rutrn val, used to pass val if this wnd caleld by another prgoram)
+      PostQuitMessage(0); // causes GetMessage to return false (0 is the return val, used to pass val if this wnd called by another program)
       break;
 
     default:

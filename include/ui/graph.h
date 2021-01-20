@@ -1,10 +1,9 @@
 #include "config.h"
 
-#include "world.h"
-#include "ui_utils.h"
-
-//#include <windows.h>
 #include <stdio.h>
+#include <windows.h>
+#include "ui_utils.h"
+#include "world.h"
 
 
 #define GRAPH_SIZE_RATIO 0.6

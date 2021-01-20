@@ -12,5 +12,5 @@ void set_all (float arr[MAX_WLDARRAY_SIZE][MAX_WLDARRAY_SIZE], float value) {
 
 // set array to all zero values
 void zeros (float arr[MAX_WLDARRAY_SIZE][MAX_WLDARRAY_SIZE]) {
-    set_all(arr, 0.0);
+    set_all(arr, 0.0f);
 }
