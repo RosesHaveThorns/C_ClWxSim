@@ -1,11 +1,4 @@
-#include <graph.h>
-
-//#include <windows.h>
-#include <stdio.h>
-
-#include <ui_utils.h>
-
-#include <world.h>
+#include "graph.h"
 
 // File ID: 02
 // ID is used in error msgs (first 2 digits of code)

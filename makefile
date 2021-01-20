@@ -1,6 +1,6 @@
 $(info .========= Preparing ClWxSim =========.)
 CC=gcc
-CFLAGS=-g -Wall -lgdi32
+CFLAGS=-g -Wall -lgdi32 -mwindows
 
 DIRS=core ui sim utils
 

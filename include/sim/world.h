@@ -1,10 +1,14 @@
-#include <config.h>
+#include "config.h"
+
+#include <stdio.h>
+#include "array_utils.h"
+
 
 struct world {
   int width;  // amount of cells wide
   int height; // amount of cells high
 
-  float cell_size; // size and width of a cell, measured in km
+  float cell_size; // size and width of a cell, measured in km a
 
   float angular_vel; // angular velocity of planet, measured in rad/s
 

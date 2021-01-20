@@ -1,20 +1,16 @@
-#include <ui.h>
+#include "ui.h"
 
-#include <windows.h>
-#include <stdio.h>
 
-#include <world.h>
-#include <graph.h>
 
 // File ID: 01
 // ID is used in error msgs (first 2 digits of code)
 
 const char g_szClassName[] = "WindowClass"; // name of window class for identifying later
 
-  World wld;
+World wld;
 
 // main loop; hInstance is handle for exe file in memory, hPrevInstance always NULL, lpCmdLine is command line args as str, nCmdShow is int for ShowWindow()
-// LPSTR = windows char* (LP = long pointer, C would mean constant), UINT = windows unsigned int
+// LPSTR = windows char* (LP = long pointer, C would mean constant), UINT = windows unsigned int a
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
     LPSTR lpCmdLine, int nCmdShow)
 {
