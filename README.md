@@ -5,17 +5,17 @@ Note, conversion is still incomplete at this time.
 
 ## Current Features
 - Basic Win32API ui
+- Graph showing air pressure and wind velocity
 
 ## Inprogress Features
-- Graph showing pressure field, wind, coriolis force, etc...
+- Pressure Advection and Diffusion
 
 ## Future Features
 - Wind Simulation
-- Pressure Advection and Diffusion
 - Coriolis Effect
 - Pressure Gradient Force Simulation
 - Temperature Calculation, using ideal gas laws and the Pressure Simulation
 - Humidity Simulation, including Precipitation and Cloud tracking
-- UI with front tracking and views for humidity, temperatures, pressure, wind etc
+- Advanced UI with front tracking and views for humidity, temperatures, pressure, wind etc
 - Ability to input any Planet map into the simulation
 - Simulation state storage and continuation
