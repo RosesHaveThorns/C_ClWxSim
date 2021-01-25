@@ -24,4 +24,12 @@ void wld_init(World *wld, int width, int height, float init_pressure, float ang_
   zeros(wld->ground_temp);
   zeros(wld->ground_height);
   zeros(wld->ground_water);
+
+  #ifdef RND_DATA
+    //fill_rnd_wldarray(wld->pressure, EXPECTED_PRESSURE_MAX, EXPECTED_PRESSURE_MIN);
+
+    fill_pattern_wldarray(wld->pressure, EXPECTED_PRESSURE_MAX, EXPECTED_PRESSURE_MIN);
+    fill_pattern_wldarray(wld->wind_vel_y, EXPECTED_WINDVEL_MAX, -EXPECTED_WINDVEL_MAX);
+    fill_pattern_wldarray(wld->wind_vel_x, EXPECTED_WINDVEL_MAX, -EXPECTED_WINDVEL_MAX);
+  #endif
 }

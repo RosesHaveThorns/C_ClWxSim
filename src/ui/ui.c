@@ -21,7 +21,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
   char wndTitle[] = "ClWxSim";  // title of main window (displayed in title bar)
 
   // setup world struct
-  wld_init(&wld, 255, 255, 1012.0f, 0.0000727f, 10);
+  wld_init(&wld, 256, 256, 1012.0f, 0.0000727f, 10);
 
   // REGISTER WINDOW CLASS
   #ifdef DEBUG_OUT
@@ -37,7 +37,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
   wc.hIcon          =   LoadIcon(NULL, IDI_APPLICATION);  // large icon shown when use presses alt tab (32x32)
   wc.hCursor        =   LoadCursor(NULL, IDC_ARROW);      // cursor to be displayed over window
   wc.hbrBackground  =   (HBRUSH)(COLOR_WINDOW+1);         // background brush to set colour of window
-  wc.lpszMenuName   =   NULL;                             // name of menu resourcefor the windows of the class
+  wc.lpszMenuName   =   NULL;                             // name of menu resource for the windows of the class
   wc.lpszClassName  =   g_szClassName;                    // name to identify the class with
   wc.hIconSm        =   LoadIcon(NULL, IDI_APPLICATION);  // smaller icon, to show in top left of window and taskbar (16x16)
 
@@ -94,7 +94,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
     case WM_CREATE:
       CreateMenuBar(hwnd);
       CreateButtons(hwnd);
-      DrawUpdateGraph(hwnd, &wld, GRAPH_X_PADDING, GRAPH_TOP);
+      UpdateDrawGraph(hwnd, &wld, GRAPH_X_PADDING, GRAPH_TOP);
       InvalidateRect(hwnd, NULL, 1); // redraw window next loop
       break;
 
@@ -127,7 +127,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
           break;
 
         case IDB_UPDATEVIEW:
-          DrawUpdateGraph(hwnd, &wld, GRAPH_X_PADDING, GRAPH_TOP);
+          UpdateDrawGraph(hwnd, &wld, GRAPH_X_PADDING, GRAPH_TOP);
           InvalidateRect(hwnd, NULL, 1); // redraw window next loop
           break;
 
