@@ -221,6 +221,18 @@ C_ClWxSim_BINARY_DIR:STATIC=C:/Users/mbrin/CLionProjects/C_ClWxSim/cmake-build-d
 //Value Computed by CMake
 C_ClWxSim_SOURCE_DIR:STATIC=C:/Users/mbrin/CLionProjects/C_ClWxSim
 
+//Path to a library.
+FFTW3:FILEPATH=FFTW3-NOTFOUND
+
+//Path to a library.
+FFTW3_LIB:FILEPATH=FFTW3_LIB-NOTFOUND
+
+//Path to a library.
+FFTW_LIB:FILEPATH=FFTW_LIB-NOTFOUND
+
+//Path to a library.
+PROTOBUF_LIBRARY:FILEPATH=PROTOBUF_LIBRARY-NOTFOUND
+
 
 ########################
 # INTERNAL cache entries

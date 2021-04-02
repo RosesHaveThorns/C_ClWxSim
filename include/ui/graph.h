@@ -1,7 +1,11 @@
+#ifndef H_GRAPH
+#define H_GRAPH
+
 #include "config.h"
 
 #include <stdio.h>
 #include <windows.h>
+
 #include "ui_utils.h"
 #include "world.h"
 
@@ -17,3 +21,5 @@
 
 void DrawGraph(HWND hwnd, int x_padding, int graph_top);
 void UpdateDrawGraph(HWND hwnd, World *wld, int x_padding, int graph_top);
+
+#endif

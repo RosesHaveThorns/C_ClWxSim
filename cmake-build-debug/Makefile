@@ -142,6 +142,60 @@ C_ClWxSim/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\C_ClWxSim.dir\build.make CMakeFiles/C_ClWxSim.dir/build
 .PHONY : C_ClWxSim/fast
 
+src/sim/controller.obj: src/sim/controller.c.obj
+
+.PHONY : src/sim/controller.obj
+
+# target to build an object file
+src/sim/controller.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\C_ClWxSim.dir\build.make CMakeFiles/C_ClWxSim.dir/src/sim/controller.c.obj
+.PHONY : src/sim/controller.c.obj
+
+src/sim/controller.i: src/sim/controller.c.i
+
+.PHONY : src/sim/controller.i
+
+# target to preprocess a source file
+src/sim/controller.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\C_ClWxSim.dir\build.make CMakeFiles/C_ClWxSim.dir/src/sim/controller.c.i
+.PHONY : src/sim/controller.c.i
+
+src/sim/controller.s: src/sim/controller.c.s
+
+.PHONY : src/sim/controller.s
+
+# target to generate assembly for a file
+src/sim/controller.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\C_ClWxSim.dir\build.make CMakeFiles/C_ClWxSim.dir/src/sim/controller.c.s
+.PHONY : src/sim/controller.c.s
+
+src/sim/pressure.obj: src/sim/pressure.c.obj
+
+.PHONY : src/sim/pressure.obj
+
+# target to build an object file
+src/sim/pressure.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\C_ClWxSim.dir\build.make CMakeFiles/C_ClWxSim.dir/src/sim/pressure.c.obj
+.PHONY : src/sim/pressure.c.obj
+
+src/sim/pressure.i: src/sim/pressure.c.i
+
+.PHONY : src/sim/pressure.i
+
+# target to preprocess a source file
+src/sim/pressure.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\C_ClWxSim.dir\build.make CMakeFiles/C_ClWxSim.dir/src/sim/pressure.c.i
+.PHONY : src/sim/pressure.c.i
+
+src/sim/pressure.s: src/sim/pressure.c.s
+
+.PHONY : src/sim/pressure.s
+
+# target to generate assembly for a file
+src/sim/pressure.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\C_ClWxSim.dir\build.make CMakeFiles/C_ClWxSim.dir/src/sim/pressure.c.s
+.PHONY : src/sim/pressure.c.s
+
 src/sim/world.obj: src/sim/world.c.obj
 
 .PHONY : src/sim/world.obj
@@ -250,6 +304,33 @@ src/utils/array_utils.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\C_ClWxSim.dir\build.make CMakeFiles/C_ClWxSim.dir/src/utils/array_utils.c.s
 .PHONY : src/utils/array_utils.c.s
 
+src/utils/maths_utils.obj: src/utils/maths_utils.c.obj
+
+.PHONY : src/utils/maths_utils.obj
+
+# target to build an object file
+src/utils/maths_utils.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\C_ClWxSim.dir\build.make CMakeFiles/C_ClWxSim.dir/src/utils/maths_utils.c.obj
+.PHONY : src/utils/maths_utils.c.obj
+
+src/utils/maths_utils.i: src/utils/maths_utils.c.i
+
+.PHONY : src/utils/maths_utils.i
+
+# target to preprocess a source file
+src/utils/maths_utils.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\C_ClWxSim.dir\build.make CMakeFiles/C_ClWxSim.dir/src/utils/maths_utils.c.i
+.PHONY : src/utils/maths_utils.c.i
+
+src/utils/maths_utils.s: src/utils/maths_utils.c.s
+
+.PHONY : src/utils/maths_utils.s
+
+# target to generate assembly for a file
+src/utils/maths_utils.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\C_ClWxSim.dir\build.make CMakeFiles/C_ClWxSim.dir/src/utils/maths_utils.c.s
+.PHONY : src/utils/maths_utils.c.s
+
 src/utils/ui_utils.obj: src/utils/ui_utils.c.obj
 
 .PHONY : src/utils/ui_utils.obj
@@ -286,6 +367,12 @@ help:
 	@echo ... edit_cache
 	@echo ... rebuild_cache
 	@echo ... C_ClWxSim
+	@echo ... src/sim/controller.obj
+	@echo ... src/sim/controller.i
+	@echo ... src/sim/controller.s
+	@echo ... src/sim/pressure.obj
+	@echo ... src/sim/pressure.i
+	@echo ... src/sim/pressure.s
 	@echo ... src/sim/world.obj
 	@echo ... src/sim/world.i
 	@echo ... src/sim/world.s
@@ -298,6 +385,9 @@ help:
 	@echo ... src/utils/array_utils.obj
 	@echo ... src/utils/array_utils.i
 	@echo ... src/utils/array_utils.s
+	@echo ... src/utils/maths_utils.obj
+	@echo ... src/utils/maths_utils.i
+	@echo ... src/utils/maths_utils.s
 	@echo ... src/utils/ui_utils.obj
 	@echo ... src/utils/ui_utils.i
 	@echo ... src/utils/ui_utils.s

@@ -1,3 +1,6 @@
+#ifndef H_CONFIG
+#define H_CONFIG
+
 // RUNTIME
 #define DEBUG_OUT   // Comment out this define to stop command line debug output
 
@@ -10,3 +13,5 @@
 #define EXPECTED_PRESSURE_MAX 1080   // units: millibars, used for graphical representation, does not affect simulation
 
 #define EXPECTED_WINDVEL_MAX 150   // units: ms^-1, used for graphical representation, does not affect simulation
+
+#endif

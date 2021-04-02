@@ -1,13 +1,20 @@
+#ifndef H_UI
+#define H_UI
+
 // #include "config.h"
 
 #include <stdio.h>
 #include <windows.h>
-//#include "world.h"
+
 #include "graph.h"
+#include "world.h"
+#include "controller.h"
 
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 void CreateMenuBar(HWND);
 void CreateButtons(HWND);
+
+_Noreturn void RunSimLoop(void *);
 
 // Min window size
 #define WND_WIDTH_MIN 875
@@ -29,3 +36,5 @@ void CreateButtons(HWND);
 #define IDB_UPDATEVIEW 8
 
 #define IDCB_AUTOUPDATEVIEW 9
+
+#endif

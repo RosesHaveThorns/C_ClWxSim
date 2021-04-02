@@ -42,3 +42,10 @@ void fill_pattern_wldarray (float array[MAX_WLDARRAY_SIZE][MAX_WLDARRAY_SIZE], f
     }
   }
 }
+
+// gauss-seidel linear equation solver, a and b are solver params, arr is the array and arr0 is the previous version of that array
+void linear_solve (int width, int height, float arr[MAX_WLDARRAY_SIZE][MAX_WLDARRAY_SIZE], float arr0[MAX_WLDARRAY_SIZE][MAX_WLDARRAY_SIZE], float a, float b) {
+  for (int k = 0; k < 20; k++) {
+
+  }
+}
